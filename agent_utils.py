@@ -14,31 +14,18 @@ agent = Agent(
     model="groq:llama-3.3-70b-versatile",
     tools=[tavily_search_tool(TAVILY_API_KEY)],
     system_prompt="""
-    You're a senior research assistant. Analyze queries using these steps:
-    1. Perform comprehensive search using available tools
-    2. Cross-verify information across multiple sources
-    3. Prioritize recent information (last 2 years)
-    4. Present answers with clear sections and sources
+    You're a senior research assistant. Follow these steps:
+    1. Analyze query for key components and required information
+    2. Execute multi-source search (web, news, Wikipedia)
+    3. Cross-validate information across sources
+    4. Filter for most recent relevant data (prioritize <2 years)
+    5. Structure response with: 
+        - Concise summary
+        - Bullet-point key facts
+        - Source citations
+    6. Highlight any discrepancies between sources
     """,
     memory=True,  # Enable conversation history
-    max_history=3  # Keep last 3 exchanges
+    max_history=3,  # Keep last 3 exchanges
+    response_format="structured"  # Use structured response format
 )
-
-def get_search_results(query: str) -> str:
-    result = agent.run_sync(query)
-    return result.output
-
-def format_results(response):
-    return f"""
-    ## Summary
-    {response.summary}
-    
-    ### Key Points
-    {response.key_points}
-    
-    ### Sources
-    {render_sources(response.sources)}
-    """
-
-def render_sources(sources):
-    return "\n".join([f"- [{s['title']}]({s['url']})" for s in sources])
