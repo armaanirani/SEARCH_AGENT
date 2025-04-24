@@ -11,7 +11,7 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 
 # Creating the agent
 agent = Agent(
-    model="groq:llama-3.3-70b-versatile"
+    model="groq:llama-3.3-70b-versatile",
     tools=[tavily_search_tool(TAVILY_API_KEY)],
     system_prompt="Search Tavily for the given query and return the results."
 )
