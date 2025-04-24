@@ -1,7 +1,5 @@
 pydantic-ai
 pydantic-ai-slim[tavily]
-pydantic-ai-slim[wikipedia]
-pydantic-ai-slim[newsapi]
 streamlit
 python-dotenv
 streamlit
