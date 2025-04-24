@@ -29,3 +29,7 @@ agent = Agent(
     max_history=3,  # Keep last 3 exchanges
     response_format="structured"  # Use structured response format
 )
+
+def get_search_results(query: str) -> str:
+    result = agent.run_sync(query)
+    return result.output
